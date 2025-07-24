@@ -1,0 +1,10 @@
+#ipykernel
+#requests
+pandas
+numpy
+matplotlib
+trimesh
+scipy
+seaborn
+scikit-learn
+xgboost
