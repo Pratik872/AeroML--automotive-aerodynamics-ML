@@ -242,7 +242,7 @@ class STLFeatureExtraction:
         return stl_features_df, failed_files
     
 
-    def save_features(stl_features_df, output_path="./data/artifacts/ml_ready/stl_features.csv"):
+    def save_features(self, stl_features_df, output_path="./data/artifacts/ml_ready/stl_features.csv"):
         """Save extracted features to CSV."""
         
         stl_features_df.to_csv(output_path, index=False)
