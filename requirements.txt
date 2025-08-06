@@ -10,3 +10,4 @@ scikit-learn
 xgboost
 open3d
 tqdm
+rtree
