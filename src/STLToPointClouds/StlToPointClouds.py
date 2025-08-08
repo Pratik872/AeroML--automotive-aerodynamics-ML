@@ -108,6 +108,9 @@ class AeroDynamicsPointCloudDataset(Dataset):
         run_id = int(row['run'])
         drag_coeff = float(row['Cd'])
 
+        # Round Cd to 2 decimals for better training
+        drag_coeff = round(drag_coeff, 2)
+
 
         # STL path
         stl_path = self.base_path / f"run_{run_id}" / f"drivaer_{run_id}.stl"

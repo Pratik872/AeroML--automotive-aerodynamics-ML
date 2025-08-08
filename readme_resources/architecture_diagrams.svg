@@ -1,0 +1,224 @@
+<svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" 
+     refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+    
+    <!-- Gradients -->
+    <linearGradient id="cnn3d" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bbdefb;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="pointnet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f5e8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c8e6c9;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="failed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffebee;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffcdd2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Title -->
+  <text x="700" y="30" text-anchor="middle" font-size="24" font-weight="bold" fill="#333">
+    Failed Deep Learning Architectures
+  </text>
+  
+  <!-- 3D CNN Section -->
+  <text x="350" y="70" text-anchor="middle" font-size="20" font-weight="bold" fill="#1976d2">
+    3D CNN Architecture
+  </text>
+  
+  <!-- STL Input -->
+  <rect x="50" y="90" width="80" height="60" rx="5" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+  <text x="90" y="115" text-anchor="middle" font-size="11" font-weight="bold">STL Mesh</text>
+  <text x="90" y="130" text-anchor="middle" font-size="9">2k-5k triangles</text>
+  <text x="90" y="142" text-anchor="middle" font-size="9">Car surface</text>
+  
+  <!-- Voxelization -->
+  <rect x="150" y="90" width="80" height="60" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+  <text x="190" y="110" text-anchor="middle" font-size="11" font-weight="bold">Voxelization</text>
+  <text x="190" y="125" text-anchor="middle" font-size="9">64³ grid</text>
+  <text x="190" y="137" text-anchor="middle" font-size="9">1.5% fill ratio</text>
+  
+  <!-- 3D Convolutions -->
+  <rect x="250" y="80" width="70" height="40" rx="5" fill="url(#cnn3d)" stroke="#1976d2" stroke-width="1"/>
+  <text x="285" y="95" text-anchor="middle" font-size="10" font-weight="bold">Conv3D</text>
+  <text x="285" y="108" text-anchor="middle" font-size="8">1→32</text>
+  <text x="285" y="117" text-anchor="middle" font-size="8">3×3×3</text>
+  
+  <rect x="330" y="80" width="70" height="40" rx="5" fill="url(#cnn3d)" stroke="#1976d2" stroke-width="1"/>
+  <text x="365" y="95" text-anchor="middle" font-size="10" font-weight="bold">Conv3D</text>
+  <text x="365" y="108" text-anchor="middle" font-size="8">32→64</text>
+  <text x="365" y="117" text-anchor="middle" font-size="8">Pool 2×2×2</text>
+  
+  <rect x="410" y="80" width="70" height="40" rx="5" fill="url(#cnn3d)" stroke="#1976d2" stroke-width="1"/>
+  <text x="445" y="95" text-anchor="middle" font-size="10" font-weight="bold">Conv3D</text>
+  <text x="445" y="108" text-anchor="middle" font-size="8">64→128</text>
+  <text x="445" y="117" text-anchor="middle" font-size="8">Pool 2×2×2</text>
+  
+  <!-- Global Avg Pool -->
+  <rect x="500" y="90" width="80" height="60" rx="5" fill="url(#cnn3d)" stroke="#1976d2" stroke-width="2"/>
+  <text x="540" y="115" text-anchor="middle" font-size="11" font-weight="bold">Global Pool</text>
+  <text x="540" y="130" text-anchor="middle" font-size="9">8×8×8 → 1</text>
+  <text x="540" y="142" text-anchor="middle" font-size="9">128 features</text>
+  
+  <!-- FC Layers -->
+  <rect x="600" y="90" width="80" height="60" rx="5" fill="url(#failed)" stroke="#dc3545" stroke-width="2"/>
+  <text x="640" y="110" text-anchor="middle" font-size="11" font-weight="bold">FC Layers</text>
+  <text x="640" y="125" text-anchor="middle" font-size="9">128→64→1</text>
+  <text x="640" y="137" text-anchor="middle" font-size="9">✗ Overfitting</text>
+  
+  <!-- 3D CNN Data Flow -->
+  <text x="50" y="180" font-size="10" fill="#666">Input: (Batch, 1, 64, 64, 64)</text>
+  <text x="250" y="180" font-size="10" fill="#666">→ (B, 32, 32, 32, 32)</text>
+  <text x="410" y="180" font-size="10" fill="#666">→ (B, 128, 8, 8, 8)</text>
+  <text x="580" y="180" font-size="10" fill="#666">→ (B, 1)</text>
+  
+  <!-- Problem Analysis -->
+  <rect x="50" y="200" width="630" height="80" rx="5" fill="#ffebee" stroke="#dc3545" stroke-width="1"/>
+  <text x="365" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc3545">3D CNN Problems</text>
+  <text x="70" y="240" font-size="11">• <tspan font-weight="bold">High Parameters:</tspan> ~4.5M parameters for 484 samples</text>
+  <text x="70" y="255" font-size="11">• <tspan font-weight="bold">Information Loss:</tspan> Voxelization loses surface detail</text>
+  <text x="70" y="270" font-size="11">• <tspan font-weight="bold">Memory Intensive:</tspan> 64³ = 262k voxels per car (mostly empty)</text>
+  
+  <!-- PointNet Section -->
+  <text x="350" y="330" text-anchor="middle" font-size="20" font-weight="bold" fill="#2e7d32">
+    PointNet Architecture
+  </text>
+  
+  <!-- STL to Points -->
+  <rect x="50" y="350" width="80" height="60" rx="5" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+  <text x="90" y="375" text-anchor="middle" font-size="11" font-weight="bold">STL Mesh</text>
+  <text x="90" y="390" text-anchor="middle" font-size="9">Sample 2048</text>
+  <text x="90" y="402" text-anchor="middle" font-size="9">points + normals</text>
+  
+  <!-- T-Net Input -->
+  <rect x="150" y="340" width="70" height="40" rx="5" fill="url(#pointnet)" stroke="#2e7d32" stroke-width="1"/>
+  <text x="185" y="355" text-anchor="middle" font-size="10" font-weight="bold">T-Net</text>
+  <text x="185" y="368" text-anchor="middle" font-size="8">3×3 transform</text>
+  <text x="185" y="377" text-anchor="middle" font-size="8">Spatial align</text>
+  
+  <!-- Shared MLPs -->
+  <rect x="240" y="340" width="60" height="40" rx="5" fill="url(#pointnet)" stroke="#2e7d32" stroke-width="1"/>
+  <text x="270" y="355" text-anchor="middle" font-size="10" font-weight="bold">MLP</text>
+  <text x="270" y="368" text-anchor="middle" font-size="8">6→16→32</text>
+  <text x="270" y="377" text-anchor="middle" font-size="8">Conv1D</text>
+  
+  <!-- T-Net Feature -->
+  <rect x="150" y="390" width="70" height="40" rx="5" fill="url(#pointnet)" stroke="#2e7d32" stroke-width="1"/>
+  <text x="185" y="405" text-anchor="middle" font-size="10" font-weight="bold">T-Net</text>
+  <text x="185" y="418" text-anchor="middle" font-size="8">16×16 feat</text>
+  <text x="185" y="427" text-anchor="middle" font-size="8">transform</text>
+  
+  <!-- More MLPs -->
+  <rect x="320" y="340" width="60" height="40" rx="5" fill="url(#pointnet)" stroke="#2e7d32" stroke-width="1"/>
+  <text x="350" y="355" text-anchor="middle" font-size="10" font-weight="bold">MLP</text>
+  <text x="350" y="368" text-anchor="middle" font-size="8">32→128</text>
+  <text x="350" y="377" text-anchor="middle" font-size="8">Conv1D</text>
+  
+  <!-- Max Pooling -->
+  <rect x="400" y="350" width="80" height="60" rx="5" fill="url(#pointnet)" stroke="#2e7d32" stroke-width="2"/>
+  <text x="440" y="370" text-anchor="middle" font-size="11" font-weight="bold">Max Pool</text>
+  <text x="440" y="385" text-anchor="middle" font-size="9">Symmetric</text>
+  <text x="440" y="397" text-anchor="middle" font-size="9">Global features</text>
+  
+  <!-- FC Regression -->
+  <rect x="500" y="350" width="80" height="60" rx="5" fill="url(#failed)" stroke="#dc3545" stroke-width="2"/>
+  <text x="540" y="370" text-anchor="middle" font-size="11" font-weight="bold">FC Layers</text>
+  <text x="540" y="385" text-anchor="middle" font-size="9">128→64→1</text>
+  <text x="540" y="397" text-anchor="middle" font-size="9">✗ R² = -14.8</text>
+  
+  <!-- PointNet Data Flow -->
+  <text x="50" y="450" font-size="10" fill="#666">Input: (Batch, 6, 2048)</text>
+  <text x="240" y="450" font-size="10" fill="#666">→ (B, 32, 2048)</text>
+  <text x="400" y="450" font-size="10" fill="#666">→ (B, 128)</text>
+  <text x="520" y="450" font-size="10" fill="#666">→ (B, 1)</text>
+  
+  <!-- PointNet Problems -->
+  <rect x="50" y="470" width="530" height="80" rx="5" fill="#ffebee" stroke="#dc3545" stroke-width="1"/>
+  <text x="315" y="490" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc3545">PointNet Problems</text>
+  <text x="70" y="510" font-size="11">• <tspan font-weight="bold">Still Complex:</tspan> 80k parameters reduced from 3.4M, still overfitting</text>
+  <text x="70" y="525" font-size="11">• <tspan font-weight="bold">Point Sampling:</tspan> May miss important surface details</text>
+  <text x="70" y="540" font-size="11">• <tspan font-weight="bold">Small Dataset:</tspan> 484 samples insufficient for point cloud learning</text>
+  
+  <!-- Comparison Table -->
+  <rect x="750" y="90" width="600" height="460" rx="5" fill="#f8f9fa" stroke="#6c757d" stroke-width="2"/>
+  <text x="1050" y="120" text-anchor="middle" font-size="16" font-weight="bold">Architecture Comparison</text>
+  
+  <!-- Table Headers -->
+  <line x1="770" y1="140" x2="1330" y2="140" stroke="#333" stroke-width="1"/>
+  <text x="840" y="155" text-anchor="middle" font-size="12" font-weight="bold">Aspect</text>
+  <text x="1000" y="155" text-anchor="middle" font-size="12" font-weight="bold">3D CNN</text>
+  <text x="1200" y="155" text-anchor="middle" font-size="12" font-weight="bold">PointNet</text>
+  
+  <line x1="770" y1="170" x2="1330" y2="170" stroke="#333" stroke-width="1"/>
+  <line x1="920" y1="140" x2="920" y2="530" stroke="#333" stroke-width="1"/>
+  <line x1="1120" y1="140" x2="1120" y2="530" stroke="#333" stroke-width="1"/>
+  
+  <!-- Table Rows -->
+  <text x="780" y="190" font-size="11" font-weight="bold">Input Format</text>
+  <text x="1000" y="190" text-anchor="middle" font-size="10">64³ voxel grid</text>
+  <text x="1200" y="190" text-anchor="middle" font-size="10">2048 point cloud</text>
+  
+  <text x="780" y="210" font-size="11" font-weight="bold">Parameters</text>
+  <text x="1000" y="210" text-anchor="middle" font-size="10">~4.5M</text>
+  <text x="1200" y="210" text-anchor="middle" font-size="10">~80K (reduced)</text>
+  
+  <text x="780" y="230" font-size="11" font-weight="bold">Data Processing</text>
+  <text x="1000" y="230" text-anchor="middle" font-size="10">Voxelization</text>
+  <text x="1200" y="230" text-anchor="middle" font-size="10">Point sampling</text>
+  
+  <text x="780" y="250" font-size="11" font-weight="bold">Memory Usage</text>
+  <text x="1000" y="250" text-anchor="middle" font-size="10">High (262k/car)</text>
+  <text x="1200" y="250" text-anchor="middle" font-size="10">Medium (12k/car)</text>
+  
+  <text x="780" y="270" font-size="11" font-weight="bold">Information Loss</text>
+  <text x="1000" y="270" text-anchor="middle" font-size="10">High (surface detail)</text>
+  <text x="1200" y="270" text-anchor="middle" font-size="10">Medium (sampling)</text>
+  
+  <text x="780" y="290" font-size="11" font-weight="bold">Best Result</text>
+  <text x="1000" y="290" text-anchor="middle" font-size="10" fill="#dc3545">Negative R²</text>
+  <text x="1200" y="290" text-anchor="middle" font-size="10" fill="#dc3545">-14.8% R²</text>
+  
+  <text x="780" y="310" font-size="11" font-weight="bold">Main Issue</text>
+  <text x="1000" y="310" text-anchor="middle" font-size="10">Severe overfitting</text>
+  <text x="1200" y="310" text-anchor="middle" font-size="10">Still overfitting</text>
+  
+  <!-- Key Insights -->
+  <rect x="770" y="330" width="560" height="100" rx="5" fill="#fff3e0" stroke="#ff9800" stroke-width="1"/>
+  <text x="1050" y="350" text-anchor="middle" font-size="14" font-weight="bold" fill="#e65100">Key Insights</text>
+  <text x="790" y="375" font-size="11">• <tspan font-weight="bold">Root Cause:</tspan> 484 samples too small for complex deep learning models</text>
+  <text x="790" y="395" font-size="11">• <tspan font-weight="bold">Traditional ML Superior:</tspan> XGBoost 87.9% R² beats both approaches</text>
+  <text x="790" y="415" font-size="11">• <tspan font-weight="bold">Solution:</tspan> Either simpler models or more data (DrivAerNet++ 8k samples)</text>
+  
+  <!-- Next Approach -->
+  <rect x="770" y="450" width="560" height="80" rx="5" fill="url(#pointnet)" stroke="#2e7d32" stroke-width="2"/>
+  <text x="1050" y="475" text-anchor="middle" font-size="14" font-weight="bold" fill="#1b5e20">Next: Graph Neural Networks</text>
+  <text x="790" y="500" font-size="11">• <tspan font-weight="bold">Direct mesh processing</tspan> - no voxelization or sampling</text>
+  <text x="790" y="520" font-size="11">• <tspan font-weight="bold">Triangle connectivity</tspan> - preserves geometric relationships</text>
+  
+  <!-- Arrows -->
+  <line x1="130" y1="120" x2="145" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="230" y1="120" x2="245" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="320" y1="100" x2="325" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="400" y1="100" x2="405" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="480" y1="100" x2="495" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="580" y1="120" x2="595" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <line x1="130" y1="380" x2="145" y2="360" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="220" y1="360" x2="235" y2="360" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="220" y1="410" x2="235" y2="370" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="300" y1="360" x2="315" y2="360" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="380" y1="360" x2="395" y2="380" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="480" y1="380" x2="495" y2="380" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Performance Labels -->
+  <text x="90" y="580" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc3545">Traditional ML: 87.9% R² ✓</text>
+  <text x="350" y="580" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc3545">Deep Learning: Failed ✗</text>
+  <text x="1050" y="580" text-anchor="middle" font-size="12" font-weight="bold" fill="#2e7d32">Next: GNN Target >90% R²</text>
+  
+</svg>
