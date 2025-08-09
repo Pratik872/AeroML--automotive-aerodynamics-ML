@@ -5,6 +5,10 @@ Predicting Automotive Drag coefficients from geometric features and 3D mesh data
 
 **Dataset:** 484 DrivAer vehicle geometries with validated CFD drag coefficients  
 
+## Data Analysis
+
+![]
+
 
 ## Project Evolution
 
