@@ -29,37 +29,13 @@ Predicting Automotive Drag coefficients from geometric features and 3D mesh data
 ### Phase 3: 3D CNNs
 **Approach:** STL → voxelization (64³ grid) → 3D CNN
 
-**Architecture:**
-```
-Input: 64×64×64 voxels (262,144 voxels)
-    ↓
-Conv3D(1→32) + MaxPool3D
-    ↓
-Conv3D(32→64) + MaxPool3D  
-    ↓
-Conv3D(64→128) + MaxPool3D
-    ↓
-Flatten → FC(131,072→1024→512→1)
-```
-**Parameters:** 4.5M  
-
 ### Phase 4: PointNet
 **Approach:** STL → point clouds (2048 points + normals) → PointNet
-
-**Architecture:**
-```
-Input: 2048×6 (xyz + normals)
-    ↓
-T-Net (Transform) → SharedMLP(64,128,1024)
-    ↓
-MaxPool → FC(1024→512→256→1)
-```
-**Parameters:** 400K → 80K (reduced)  
-
 
 ### Phase 5: Graph Neural Networks- MeshCNN
 **Approach:** STL → edge graphs → Graph Neural Network  
 **Key Insight:** Edges capture geometric transitions crucial for aerodynamics
+
 
 ## Methodology
 
