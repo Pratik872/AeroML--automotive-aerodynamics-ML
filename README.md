@@ -7,7 +7,11 @@ Predicting Automotive Drag coefficients from geometric features and 3D mesh data
 
 ## Data Analysis
 
-![]
+![Cd_dist](https://github.com/Pratik872/AeroML--automotive-aerodynamics-ML/blob/main/readme_resources/Cd_distribution.png)
+
+
+![feat_imp](https://github.com/Pratik872/AeroML--automotive-aerodynamics-ML/blob/main/readme_resources/correlations.png)
+
 
 
 ## Project Evolution
@@ -35,6 +39,8 @@ Predicting Automotive Drag coefficients from geometric features and 3D mesh data
 
 ### Phase 4: PointNet
 **Approach:** STL → point clouds (2048 points + normals) → PointNet
+
+![pointclouds](https://github.com/Pratik872/AeroML--automotive-aerodynamics-ML/blob/main/readme_resources/pointclouds.png)
 
 ### Phase 5: Graph Neural Networks- MeshCNN
 **Approach:** STL → edge graphs → Graph Neural Network  
