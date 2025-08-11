@@ -175,10 +175,13 @@ drivaerml_data/
 
 ![Ridge_Lasso](https://github.com/Pratik872/AeroML--automotive-aerodynamics-ML/blob/main/readme_resources/Ridge_Lasso.png)
 
+- 3DCNN
 ![3DCNN](https://github.com/Pratik872/AeroML--automotive-aerodynamics-ML/blob/main/readme_resources/3DCNN_losses.png)
 
+- PointNet
 ![PointNet](https://github.com/Pratik872/AeroML--automotive-aerodynamics-ML/blob/main/readme_resources/PointNet_losses.png)
 
+- MeshCNN
 ![MeshCNN](https://github.com/Pratik872/AeroML--automotive-aerodynamics-ML/blob/main/readme_resources/MeshCNN.png)
 
 
