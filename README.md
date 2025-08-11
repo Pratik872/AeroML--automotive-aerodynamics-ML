@@ -122,13 +122,6 @@ Regression Head: 64 → 32 → 1
 ```
 **Parameters:** 11,201
 
-**Edge Convolution Operation:**
-```python
-def EdgeConv(x_self, x_neighbors):
-    combined = concat([x_self, x_neighbors], dim=1)
-    return Linear(combined)  # Learn local geometric patterns
-```
-
 ## Data Preprocessing
 
 ### Dataset Characteristics
