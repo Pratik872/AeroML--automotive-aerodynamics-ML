@@ -34,6 +34,7 @@ Predicting Automotive Drag coefficients from geometric features and 3D mesh data
 **Result:** 87.5% R² (marginal improvement)  
 **Finding:** Traditional ML reached performance plateau
 
+
 ### Phase 3: 3D CNNs
 **Approach:** STL → voxelization (64³ grid) → 3D CNN
 
@@ -45,6 +46,11 @@ Predicting Automotive Drag coefficients from geometric features and 3D mesh data
 ### Phase 5: Graph Neural Networks- MeshCNN
 **Approach:** STL → edge graphs → Graph Neural Network  
 **Key Insight:** Edges capture geometric transitions crucial for aerodynamics
+
+
+- 3D CNNs: Convert mesh → voxels → lose surface detail + memory waste
+- PointNet: Convert mesh → points → lose connectivity + surface sampling issues
+- MeshCNN: Works directly on mesh edges → preserves surface geometry + connectivity
 
 
 ## Methodology
