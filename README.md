@@ -195,7 +195,7 @@ drivaerml_data/
 **Architecture improvements:**
 - Edge pooling for mesh simplification
 - Attention mechanisms for important edges
-- Multi-scale feature extraction
+- PINNs- Physics informed Machine Learning
 
 ## Built with 🛠️
 - Python 3.12.0
