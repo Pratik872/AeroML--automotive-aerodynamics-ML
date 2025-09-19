@@ -11,3 +11,4 @@ xgboost
 open3d
 tqdm
 rtree
+streamlit

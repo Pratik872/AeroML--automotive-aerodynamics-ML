@@ -10,7 +10,8 @@ from pathlib import Path
 from sklearn.ensemble import RandomForestRegressor
 import xgboost as xgb
 from sklearn.linear_model import Ridge, Lasso, RidgeCV, LassoCV
-
+import joblib
+import os
 
 class Modelling:
 
@@ -25,7 +26,9 @@ class Modelling:
         self.feature_cols = None
         self.X_train_scaled = None
         self.X_test_scaled = None
-        self.Scaler = None
+        self.scaler = None
+        self.feature_max = None
+        self.feature_min = None
 
     def load_ml_data(self, artifact_path: str):
         '''Load the merged dataset'''
@@ -41,6 +44,9 @@ class Modelling:
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
             self.X, self.y, test_size=0.2, random_state=42
         )
+
+        self.feature_min = self.X_train.min()
+        self.feature_max = self.X_train.max()
 
         #Scale features
         self.scaler = StandardScaler()
@@ -104,6 +110,25 @@ class Modelling:
 
         print(f"\nTop 10 Most Important Features:")
         print(feature_importance.head(10)[['Feature', 'Coefficient']].to_string(index=False))
+
+        # Create models directory if it doesn't exist
+        os.makedirs('models', exist_ok=True)
+
+        # Save model and preprocessing components for Streamlit
+        model_artifacts = {
+        'model': model,
+        'scaler': self.scaler,
+        'feature_cols': self.feature_cols,
+        'test_r2': test_r2,
+        'feature_importance': feature_importance,
+        'feature_max': self.feature_max,
+        'feature_min': self.feature_min
+            }
+    
+        # Save using joblib (recommended for sklearn models)
+        joblib.dump(model_artifacts, 'models/linear_regression_model.pkl')
+
+        print(f"\nModel saved to 'models/linear_regression_model.pkl'")
 
         # Visualization
         self.plot_linear_regression_results(self.y_test, y_test_preds)
@@ -339,3 +364,53 @@ class Modelling:
         
         return ridge_cv, lasso_cv, ridge_r2, lasso_r2
         
+
+    def predict_single_input(self, input_values, model_path='models/linear_regression_model.pkl'):
+        """
+        Make prediction for a single input
+        
+        Parameters:
+        input_values: list or string of comma-separated values
+        model_path: path to saved model
+        
+        Returns:
+        prediction: single drag coefficient prediction
+        """
+        try:
+            # Parse input if it's a string
+            if isinstance(input_values, str):
+                values = [float(x.strip()) for x in input_values.split(',')]
+            else:
+                values = input_values
+            
+            # Load model artifacts
+            model_artifacts = joblib.load(model_path)
+            print(f"Model Artifacts: \n {model_artifacts}")
+            
+            model = model_artifacts['model']
+            
+            scaler = model_artifacts['scaler']
+            
+            feature_cols = model_artifacts['feature_cols']
+            
+            
+            # Convert to numpy array and reshape for single sample
+            input_array = np.array(values).reshape(1, -1)
+            
+            # Validate input size
+            if input_array.shape[1] != len(feature_cols):
+                print(f"Error: Expected {len(feature_cols)} features, got {input_array.shape[1]}")
+                return None
+            
+            # Scale and predict
+            input_scaled = scaler.transform(input_array)
+            prediction = model.predict(input_scaled)[0]
+            
+            print(f"Input features: {len(values)}")
+            print(f"Predicted drag coefficient: {prediction:.6f}")
+            
+            return prediction
+            
+        except Exception as e:
+            print(f"Error making prediction: {e}")
+            return None
